@@ -1,6 +1,6 @@
 # Satish Chittimalla — Portfolio
 
-Senior SAP BTP Developer · CAP (Node.js) · SAP Business AI · Clean Core
+Senior SAP BTP Developer · CAP & RAP · ABAP Cloud · SAP Joule & Agentic AI · Clean Core
 
 **Live site:** https://chittimallasatish.github.io
 
@@ -8,7 +8,7 @@ An interactive portfolio built in the SAP Fiori Horizon style:
 
 - **Knowledge graph:** a 3D, rotatable map of my companies, projects, SAP tools, business processes and certifications
 - **Clean-core view:** how my work splits across the S/4HANA core, on-stack RAP and side-by-side SAP BTP extensions
-- **Case studies** with measurable outcomes (AI Core anomaly detection, RAG on HANA Vector Engine, Joule agents, Fiori apps, CI/CD)
+- **Case studies** with measurable outcomes (AI Core anomaly detection, RAG on HANA Vector Engine, Joule agents, agentic AI with LangGraph/CrewAI and MCP, S/4HANA–Kinaxis integration, Fiori apps, CI/CD)
 - **Résumé assistant** that answers recruiter questions
 
 Single static `index.html`. No build step, no backend.
