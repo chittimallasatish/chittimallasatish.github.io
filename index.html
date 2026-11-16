@@ -505,7 +505,10 @@ const S=[
  ["js","JavaScript (ES6+) / TypeScript","ux","syntax","Including rules engines that run in the browser."],
  ["test","OPA5 · Selenium","ux","quality-issue","Automated UI regression testing."],
  ["rap","ABAP RAP","core","source-code","ABAP RESTful Application Programming Model exposing OData V4."],
- ["cds","Core Data Services (CDS)","core","database","Data models and annotations."],
+ ["cds","CDS Views","core","database","Creating and extending CDS views in Eclipse (ADT) to expose S/4HANA data to Fiori apps."],
+ ["anno","CDS UI Annotations","core","grid","Line items, field groups and selection fields that control how Fiori Elements apps display data."],
+ ["mabap","Modern ABAP & ABAP Unit","core","source-code","ABAP 7.4+ syntax, exception classes and unit tests."],
+ ["idoc","IDocs & ALE","int","feeder-arrow","IDoc interfaces for procurement and SD documents, including monitoring and error handling."],
  ["abap","ABAP (OO)","core","source-code","Object-oriented ABAP, BAPI/RFC wrappers."],
  ["abapc","ABAP Cloud & Clean Core","core","s4hana","Released APIs and the ABAP Cloud development model for upgrade-safe extensions."],
  ["enh","BAdIs · Enhancements · User Exits","core","wrench","Enhancement Framework and BAdI implementations in Finance, O2C and MM."],
@@ -519,6 +522,7 @@ const S=[
  ["git","Git","ops","tree","Branching strategies and pull requests."],
  ["jenkins","Jenkins / GitLab CI/CD","ops","upload-to-cloud","Pipelines for CAP, UI5 and RAP."],
  ["tools","BAS · cf CLI · TMS · Postman","ops","wrench","Day-to-day developer tooling."],
+ ["adt","Eclipse ADT · SE80 · abapGit","ops","wrench","ABAP development tools for CDS, RAP and classic ABAP."],
 ];
 S.forEach(([id,l,c,i,d])=>{N(id,l,"skill",i,d,{cat:c});L("a_"+c,id)});
 
@@ -560,6 +564,12 @@ const P=[
   ap:"Delivered the S/4HANA–Kinaxis integration for supply-chain master and transactional data, and worked on SAP Business Data Cloud (BDC) data products from S/4HANA for analytics and AI.",
   out:"Planning runs on current S/4HANA data, with BDC data products ready for analytics and AI.",
   sk:["kinaxis","bdc","s4","cpi"],dm:["scm"]},
+ {id:"p_cds",t:"CDS Views & RAP Extensions",co:"hfs",i:"database",style:"onstack",k:"Country of Origin",ku:"field now visible in the app",
+  s:"CDS views, UI annotations and RAP extensions that show users S/4HANA data their Fiori apps were missing.",
+  ch:"Users needed to see Country of Origin, but the field was not exposed anywhere in their Fiori app.",
+  ap:"Added the field to the CDS view in Eclipse (ADT), updated the backend ABAP, and changed the UI annotations so Fiori Elements displays it. Extended a RAP app built on top of another RAP business object without modifying standard SAP code.",
+  out:"The missing data now appears in the app, with no changes to standard SAP objects.",
+  sk:["cds","anno","rap","abap","abapc","fe","adt","s4"],dm:["scm"]},
  {id:"p_o2c",t:"Finance & O2C Fiori App Suite",co:"hfs",i:"sales-order",style:"onstack",k:"300+",ku:"business users",
   s:"6 custom SAPUI5 apps on OData V4 and S/4HANA, owned from design to production.",
   ch:"Invoice approval and order-status lookups took too much manual effort.",
@@ -611,7 +621,7 @@ const P=[
 ];
 P.forEach(p=>{N(p.id,p.t,"project",p.i,p.s,{p});L(p.co,p.id);p.sk.forEach(s=>L(p.id,s));p.dm.forEach(d=>L(p.id,d))});
 // extra edges
-L("hfs","s4");L("lennox","ecc");L("ct","s4");L("fiord","ui5");L("fiord","fe");L("fiord","flp");L("aig","aicore");L("aig","genai");L("aig","joule");L("hfs","aidev");L("aig","agents");["abapc","enh","forms","perf"].forEach(x=>L("hfs",x));["alv","enh","rest"].forEach(x=>L("lennox",x));["alv","enh","perf"].forEach(x=>L("sanofi",x));L("abapc","rap");L("abap","enh");
+L("hfs","s4");L("lennox","ecc");L("ct","s4");L("fiord","ui5");L("fiord","fe");L("fiord","flp");L("aig","aicore");L("aig","genai");L("aig","joule");L("hfs","aidev");L("aig","agents");["abapc","enh","forms","perf"].forEach(x=>L("hfs",x));["alv","enh","idoc","mabap"].forEach(x=>L("lennox",x));["alv","enh","perf","idoc"].forEach(x=>L("sanofi",x));["mabap","adt"].forEach(x=>L("hfs",x));L("abapc","rap");L("abap","enh");
 
 const nbr={};nodes.forEach(n=>nbr[n.id]=new Set());links.forEach(l=>{nbr[l.a].add(l.b);nbr[l.b].add(l.a)});
 const colorOf=n=>n.type==="skill"||n.type==="area"?CAT[n.cat].c:TYPE[n.type].c;
@@ -782,6 +792,7 @@ const EXP=[
   "Custom Joule skills and agents (order status, policy Q&A) built in Joule Studio and surfaced through Build Work Zone.",
   "Agentic AI with LangGraph, CrewAI and LlamaIndex on AI Core / GenAI Hub, plus MCP servers exposing SAP services as governed agent tools; MLOps for model deployment and monitoring.",
   "S/4HANA–Kinaxis supply-chain integration and SAP Business Data Cloud (BDC) data products.",
+  "Created and extended CDS views and UI annotations in Eclipse (ADT), including a Country of Origin fix across the CDS view, backend ABAP and Fiori Elements app; extended a RAP app built on another RAP business object.",
   "ABAP Cloud / RAP development, BAdIs and enhancements, Adobe Forms, and performance tuning (ST05, SAT, ATC).",
   "Build Process Automation workflows for Sales Orders (−15% cycle time); set up Work Zone and Mobile Start.",
   "6 SAPUI5 Finance & O2C apps for 300+ users, with ~30% less effort on invoice approval and order lookup.",
@@ -837,16 +848,16 @@ $$("#itb button").forEach(b=>b.onclick=()=>{st=b.dataset.c;$$("#itb button").for
 renderSkills();
 
 /* ================= ASSISTANT ================= */
-const SUMMARY="Satish Chittimalla is a Senior SAP BTP Developer & AI Consultant at HF Sinclair in Dallas, Texas, with 8+ years in SAP. He builds cloud-native, clean-core extensions with CAP (Node.js) and RAP, SAPUI5/Fiori apps, and SAP Business AI: anomaly detection on AI Core, RAG on the HANA Vector Engine, custom Joule agents, and agentic AI (LangGraph, CrewAI, MCP). He also brings strong ABAP: ABAP Cloud, RAP, BAdIs, ALV, IDocs, Adobe Forms and performance tuning. He holds two SAP certifications (Fiori Developer, Generative AI Developer) and an M.S. in Computer Science from UNT.";
+const SUMMARY="Satish Chittimalla is a Senior SAP BTP Developer & AI Consultant at HF Sinclair in Dallas, Texas, with 8+ years in SAP. He builds cloud-native, clean-core extensions with CAP (Node.js) and RAP, SAPUI5/Fiori apps, and SAP Business AI: anomaly detection on AI Core, RAG on the HANA Vector Engine, custom Joule agents, and agentic AI (LangGraph, CrewAI, MCP). He also brings strong ABAP: ABAP Cloud, RAP, CDS views and annotations, BAdIs, ALV, IDocs, Adobe Forms and performance tuning. He holds two SAP certifications (Fiori Developer, Generative AI Developer) and an M.S. in Computer Science from UNT.";
 // intents: [keywords (prefix match), answer, related node ids]
 const INT=[
  [["who","about","summary","introduc","yourself","himself","profile","overview","satish","bio","background","tell me"],SUMMARY,["me"]],
  [["experience","years","career","history","companies","worked","employer","job","roles"],"8+ years in SAP:\n• HF Sinclair: Senior SAP BTP Developer & AI Consultant (Apr 2024 – now)\n• Lennox International: SAP UI5 Developer & BTP Consultant (2022–24)\n• CertainTeed (Saint-Gobain): SAP UI5/Fiori Developer (2020–21)\n• Sanofi: SAP UI5/Fiori Developer, ABAP & JavaScript (2017–20)",["hfs","lennox","ct","sanofi"]],
  [["current","now","today","present","presently"],"He's currently a Senior SAP BTP Developer & AI Consultant at HF Sinclair (since April 2024). He builds CAP/RAP services on BTP, AI on SAP AI Core, RAG workflows, Joule agents, Fiori apps and CI/CD.",["hfs"]],
- [["skill","stack","tech","tool","expert","know","good at","strong"],"Core strengths:\n• BTP: CAP (Node.js), XSUAA, Destinations, Cloud Connector, Build Process Automation, Work Zone\n• AI: SAP AI Core, AI Launchpad, GenAI Hub SDK, HANA Vector Engine, Joule Studio, LangGraph, CrewAI, LlamaIndex, MCP, MLOps\n• Data: SAP Business Data Cloud (BDC), HANA Cloud\n• Frontend: SAPUI5, Fiori Elements, PWA\n• Backend: ABAP OO, ABAP Cloud, RAP, CDS, BAdIs/enhancements, ALV, Adobe Forms, IDocs, SEGW, performance tuning\n• Integration: OData V2/V4, CPI, Event Mesh, API Management, Kinaxis\n• DevOps: Git, Jenkins",["a_btp","a_ai","a_ux"]],
+ [["skill","stack","tech","tool","expert","know","good at","strong"],"Core strengths:\n• BTP: CAP (Node.js), XSUAA, Destinations, Cloud Connector, Build Process Automation, Work Zone\n• AI: SAP AI Core, AI Launchpad, GenAI Hub SDK, HANA Vector Engine, Joule Studio, LangGraph, CrewAI, LlamaIndex, MCP, MLOps\n• Data: SAP Business Data Cloud (BDC), HANA Cloud\n• Frontend: SAPUI5, Fiori Elements, PWA\n• Backend: ABAP OO, Modern ABAP, ABAP Cloud, RAP, CDS views & UI annotations, BAdIs/enhancements, ALV, Adobe Forms, IDocs, SEGW, performance tuning (Eclipse ADT)\n• Integration: OData V2/V4, CPI, Event Mesh, API Management, Kinaxis\n• DevOps: Git, Jenkins",["a_btp","a_ai","a_ux"]],
  [["why","hire","strength","value","unique","different","fit","best"],"Why Satish: he takes requirements through design, build and go-live on his own, and he combines classic SAP (ABAP, Fiori, S/4HANA security) with modern BTP and SAP Business AI. Results: 12K+ payments a month screened by AI (−40% review), 300+ users on his Finance/O2C apps, −50% deployment effort, and zero critical defects at go-live.",["p_anom","p_o2c","p_cicd"]],
  [["project","portfolio","built","build","delivered","achievement","accomplish","work done","examples"],"Highlights: AI payment anomaly detection, RAG over Finance/O2C knowledge, custom Joule agents, agentic AI with MCP, S/4HANA–Kinaxis integration, a 6-app Finance & O2C Fiori suite, Sales Order automation, the ECC → S/4HANA security redesign, CI/CD for BTP, an offline PWA, pricing & rebates, and pharma product allocation. Open the Projects section for the full case studies.",["p_anom","p_rag","p_joule"]],
- [["clean","core","side-by-side","extension","upgrade","keep the core"],"He follows clean-core principles: the S/4HANA core stays standard, new logic goes side-by-side on SAP BTP (CAP, Build, AI Core, Joule) or on-stack with RAP and CDS, and everything talks to the core through released OData V4 / REST APIs. 8 of his 14 projects are side-by-side on BTP.",["p_cap"]],
+ [["clean","core","side-by-side","extension","upgrade","keep the core"],"He follows clean-core principles: the S/4HANA core stays standard, new logic goes side-by-side on SAP BTP (CAP, Build, AI Core, Joule) or on-stack with RAP and CDS, and everything talks to the core through released OData V4 / REST APIs. 8 of his 15 projects are side-by-side on BTP.",["p_cap"]],
  [["result","impact","number","metric","kpi","saving","reduc"],"Impact in numbers:\n• 12K+ payments a month screened by AI (−40% manual review)\n• 300+ users on 6 Finance/O2C apps (−30% effort)\n• −50% deployment effort with CI/CD\n• 806 legacy T-codes → 25 personas\n• PO approvals from ~2 days to the same day\n• −70% manual pricing effort\n• Zero critical defects at go-live",[]],
  [["cert","certified","certification","credential"],"Two SAP certifications: SAP Certified Associate – Fiori Application Developer (C_FIORD) and SAP Certified Associate – Generative AI Developer (C_AIG).",["fiord","aig"]],
  [["educat","degree","university","master","college","study","bachelor","btech"],"M.S. Computer Science, University of North Texas (2022), and B.Tech Computer Science, GITAM University, Hyderabad (2017).",["unt","gitam"]],
@@ -858,7 +869,7 @@ const INT=[
  [["hi","hello","hey","good morning","good afternoon","thanks","thank"],"Hi! 👋 Ask me anything about Satish: his experience, skills, projects, certifications, or how to contact him.",[]],
 ];
 // extra aliases for graph entities
-const ALIAS={cap:["cap","cloud application programming","node"],btpcf:["btp","cloud foundry"],xsuaa:["xsuaa","oauth","jwt"],dest:["destination"],cc:["cloud connector"],pp:["principal propagation"],mta:["mta"],hana:["hana cloud"],bpa:["process automation","build pa","workflow"],wz:["work zone","workzone"],ms:["mobile start"],aicore:["ai core","aicore"],ail:["ai launchpad"],genai:["genai hub","generative ai hub","gen ai"],vec:["vector"],rag:["rag","retrieval"],joule:["joule"],agents:["langgraph","crewai","llamaindex","agentic","multi-agent"],mcp:["mcp","model context protocol"],mlops:["mlops"],bdc:["bdc","business data cloud"],kinaxis:["kinaxis"],abapc:["abap cloud","clean core abap"],enh:["badi","enhancement","user exit"],alv:["alv"],forms:["adobe form","adobe forms","smartform"],perf:["performance","tuning","st05"],py:["python","scikit","pandas","machine learning"," ml "],lc:["langchain"],aidev:["claude","copilot","ollama","ai-assisted","ai assisted"],odata:["odata"],rest:["rest api","soap","rfc","idoc"],cpi:["cpi","integration suite"],em:["event mesh"],apim:["api management"],sfsf:["salesforce","successfactors"],ui5:["ui5","sapui5","openui5"],fe:["fiori elements","fiori"],flp:["launchpad","flp"],pwa:["pwa","offline","service worker"],js:["javascript","typescript"," js "],test:["opa5","selenium","testing"],rap:["rap","restful"],cds:["cds","core data services"],abap:["abap"],segw:["segw","gateway","netweaver"],s4:["s/4","s4","s4hana","s/4hana"],ecc:["ecc"],roles:["security","authorization","role","persona"],git:["git"],jenkins:["jenkins","gitlab","ci/cd","cicd","pipeline"],tools:["bas","business application studio","cf cli","postman","tms"],
+const ALIAS={cap:["cap","cloud application programming","node"],btpcf:["btp","cloud foundry"],xsuaa:["xsuaa","oauth","jwt"],dest:["destination"],cc:["cloud connector"],pp:["principal propagation"],mta:["mta"],hana:["hana cloud"],bpa:["process automation","build pa","workflow"],wz:["work zone","workzone"],ms:["mobile start"],aicore:["ai core","aicore"],ail:["ai launchpad"],genai:["genai hub","generative ai hub","gen ai"],vec:["vector"],rag:["rag","retrieval"],joule:["joule"],agents:["langgraph","crewai","llamaindex","agentic","multi-agent"],mcp:["mcp","model context protocol"],mlops:["mlops"],bdc:["bdc","business data cloud"],kinaxis:["kinaxis"],abapc:["abap cloud","clean core abap"],enh:["badi","enhancement","user exit"],alv:["alv"],cds:["cds","core data services","cds view"],anno:["annotation"],mabap:["abap unit","modern abap"],idoc:["idoc","ale"],adt:["eclipse","adt","abapgit","se80"],p_cds:["country of origin","origin country"],forms:["adobe form","adobe forms","smartform"],perf:["performance","tuning","st05"],py:["python","scikit","pandas","machine learning"," ml "],lc:["langchain"],aidev:["claude","copilot","ollama","ai-assisted","ai assisted"],odata:["odata"],rest:["rest api","soap","rfc","idoc"],cpi:["cpi","integration suite"],em:["event mesh"],apim:["api management"],sfsf:["salesforce","successfactors"],ui5:["ui5","sapui5","openui5"],fe:["fiori elements","fiori"],flp:["launchpad","flp"],pwa:["pwa","offline","service worker"],js:["javascript","typescript"," js "],test:["opa5","selenium","testing"],rap:["rap","restful"],cds:["cds","core data services"],abap:["abap"],segw:["segw","gateway","netweaver"],s4:["s/4","s4","s4hana","s/4hana"],ecc:["ecc"],roles:["security","authorization","role","persona"],git:["git"],jenkins:["jenkins","gitlab","ci/cd","cicd","pipeline"],tools:["bas","business application studio","cf cli","postman","tms"],
  hfs:["hf sinclair","sinclair","hfs"],lennox:["lennox"],ct:["certainteed","saint-gobain","saint gobain"],sanofi:["sanofi"],p_anom:["anomaly","fraud","payment"],p_sec:["migration","t-code","tcode"],p_prc:["pricing","rebate"],p_alloc:["allocation"]};
 function findEntities(q){const hits=[];nodes.forEach(n=>{if(n.type==="me"||n.type==="area")return;const al=(ALIAS[n.id]||[]).concat([n.label.toLowerCase()]);const sc=Math.max(...al.map(a=>q.includes(a)?a.length:0));if(sc>2)hits.push([n,sc])});return hits.sort((a,b)=>b[1]-a[1]).map(h=>h[0])}
 function entityAnswer(n){const rel=[...nbr[n.id]].map(i=>byId[i]);const pj=rel.filter(m=>m.type==="project").map(m=>m.label),co=rel.filter(m=>m.type==="company").map(m=>m.label);
@@ -881,7 +892,7 @@ function ask(q){if(!q.trim())return;msg(q.replace(/</g,"&lt;"),"me");const t=msg
       if(rel.length){const r=document.createElement("div");r.className="lnk";r.style.marginTop=".5rem";r.innerHTML=rel.map(id=>`<span class="tok" data-n="${id}">${ic(byId[id].icon)}Show ${byId[id].label}</span>`).join("");t.appendChild(r);
         r.querySelectorAll(".tok").forEach(x=>x.onclick=()=>{go("graph");setTimeout(()=>select(byId[x.dataset.n]),350)});$("#msgs").scrollTop=1e6}}},12)},450)}
 msg("Hi, I'm Satish's résumé assistant. Ask me anything: who he is, his experience, skills, projects, or a specific SAP tool.","bot");
-$("#qk").innerHTML=["Who is Satish?","Why hire him?","Experience?","Impact in numbers","Joule agents?","Agentic AI / MCP?","ABAP skills?","Contact?"].map(q=>`<button>${q}</button>`).join("");
+$("#qk").innerHTML=["Who is Satish?","Why hire him?","Experience?","Impact in numbers","Joule agents?","Agentic AI / MCP?","ABAP skills?","CDS views?","Contact?"].map(q=>`<button>${q}</button>`).join("");
 $$("#qk button").forEach(b=>b.onclick=()=>ask(b.textContent));
 $("#cf").onsubmit=e=>{e.preventDefault();ask($("#ci").value);$("#ci").value=""};
 $("#fab").onclick=()=>{$("#chat").classList.toggle("show");if($("#chat").classList.contains("show"))$("#ci").focus()};
