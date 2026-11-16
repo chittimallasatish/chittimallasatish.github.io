@@ -452,7 +452,8 @@ N("hfs","HF Sinclair","company","factory","Senior SAP BTP Developer & AI Consult
 N("lennox","Lennox International","company","building","SAP UI5 Developer & BTP Consultant · Aug 2022 – Mar 2024 · Richardson, TX · SAP ECC");
 N("ct","CertainTeed (Saint-Gobain)","company","home","SAP UI5 / Fiori Developer · Jul 2020 – Jul 2021 · SAP S/4HANA");
 N("sanofi","Sanofi","company","pharmacy","SAP UI5 / Fiori Developer (ABAP & JavaScript) · May 2017 – Jun 2020 · Hyderabad, India");
-["hfs","lennox","ct","sanofi"].forEach(c=>L("me",c));
+N("indep","Independent Projects","company","lab","Self-directed SAP AI builds, published as write-ups · 2026");
+["hfs","lennox","ct","sanofi","indep"].forEach(c=>L("me",c));
 
 // credentials
 N("fiord","SAP Certified – Fiori Application Developer","cred","badge","SAP Certified Associate (C_FIORD), issued by SAP.");
@@ -484,7 +485,9 @@ const S=[
  ["genai","Generative AI Hub SDK","ai","lightbulb","LLM access and RAG pipelines on SAP AI Core."],
  ["vec","HANA Vector Engine","ai","database","Vector store for cosine-similarity retrieval in RAG."],
  ["rag","RAG Architecture","ai","search","Retrieval-augmented generation with authorization-aware metadata filtering."],
- ["joule","SAP Joule / Joule Studio","ai","da","Custom Joule skills and agents built in SAP Build."],
+ ["joule","SAP Joule / Joule Studio","ai","da","Custom Joule skills and agents, plus a five-agent Order-to-Cash team built and deployed in Joule Studio."],
+ ["evals","Agent Testing & Evaluation","ai","lab","Deterministic test suites and evaluation cases for correctness, groundedness, digression and memory."],
+ ["ias","SAP Cloud Identity Services","btp","shield","User assignment and access for deployed Joule agents."],
  ["py","Python · scikit-learn · pandas","ai","lab","Isolation Forest models and data prep."],
  ["lc","LangChain","ai","chain-link","LLM orchestration patterns."],
  ["agents","Agentic AI · LangGraph · CrewAI · LlamaIndex","ai","org-chart","Multi-agent workflows orchestrated over SAP AI Core / GenAI Hub."],
@@ -546,10 +549,16 @@ const P=[
   ap:"Built RAG workflows on SAP AI Core and the HANA Vector Engine via the Generative AI Hub SDK, using cosine-similarity search with authorization-aware metadata filtering.",
   out:"Process and policy questions now get answered in minutes instead of hours.",
   sk:["rag","aicore","vec","genai","xsuaa","lc"],dm:["fi","o2c"]},
+ {id:"p_jstudio",t:"Joule Studio: Order-to-Cash AI Agent Team",co:"indep",i:"lab",style:"side",k:"932",ku:"automated tests, all passing",url:"https://www.linkedin.com/pulse/inside-joule-studio-what-932-automated-tests-two-one-me-chittimalla-tftbc/",
+  s:"Five Joule Studio agents for the daily O2C exception cycle; two rebuilt and deployed on live S/4HANA Cloud.",
+  ch:"Find out whether SAP Joule Studio agents are ready for a real landscape, not just a demo: what the platform generates, how it tests, and what stops an agent from going live.",
+  ap:"Built five agents (anomaly detection, ops briefing, credit and block resolution, customer email drafting, fulfillment priority) with 653 deterministic tests and 23 evaluation cases. Rebuilt the two core agents in a Joule Studio trial on live S/4HANA Cloud (148/148 and 131/131 tests). Each uses a generated MCP server built from the released OData service CE_SALESORDER_0001, cut from 164 operations to 16 read-only tools. Reviewed the generated code: LangGraph agent, LiteLLM routing, Agent Gateway tool discovery with the user's own JWT, and prompt-injection checks on tool results.",
+  out:"On live data the anomaly agent flagged a $464,936 sales order as high risk (duplicate within 20 hours, quantity 189% above average) without changing it. Documented the gaps (non-durable audit storage, unrun evals, preview variance, a silent 100-order cap) and the go-live blocker: user assignment in SAP Cloud Identity Services. Turned them into a 12-point production readiness checklist.",
+  sk:["joule","mcp","agents","evals","odata","s4","ias","genai"],dm:["o2c"]},
  {id:"p_joule",t:"Custom Joule Skills & Agents",co:"hfs",i:"da",style:"side",k:"2",ku:"production agents",
-  s:"An order-status agent and a policy Q&A agent built in Joule Studio.",
+  s:"An order-status agent and a policy Q&A agent built on SAP Joule.",
   ch:"Finance and O2C users wanted conversational help inside the tools they already use.",
-  ap:"Built custom Joule skills and agents in Joule Studio (SAP Build), grounded on enterprise documents through RAG and surfaced in SAP Build Work Zone.",
+  ap:"Built custom Joule skills and agents, grounded on enterprise documents through RAG and surfaced in SAP Build Work Zone.",
   out:"Conversational help right where users work, for order status and policy questions.",
   sk:["joule","rag","wz","genai"],dm:["o2c","fi"]},
  {id:"p_agent",t:"Agentic AI & MCP for SAP",co:"hfs",i:"org-chart",style:"side",k:"MCP",ku:"SAP services as agent tools",
@@ -630,7 +639,8 @@ const colorOf=n=>n.type==="skill"||n.type==="area"?CAT[n.cat].c:TYPE[n.type].c;
 const TILES=[
  ["Side-by-Side Extensions","CAP (Node.js) & RAP on BTP","OData","V4","cloud","p_cap"],
  ["SAP Business AI","AI Core · AI Launchpad","12K+","payments/mo","ai","p_anom"],
- ["Joule Skills & Agents","Joule Studio · RAG","2","agents","da","p_joule"],
+ ["Joule Studio O2C Agents","5 agents · live S/4HANA","932","automated tests","lab","p_jstudio"],
+ ["Joule Skills & Agents","Joule · RAG","2","agents","da","p_joule"],
  ["Agentic AI & MCP","LangGraph · CrewAI · MCP","MCP","agent tools","org-chart","p_agent"],
  ["GenAI & RAG","HANA Vector · GenAI Hub","Hrs→Min","answers","search","p_rag"],
  ["Fiori & UI5 Apps","Finance · O2C · Procurement","300+","users","sap-ui5","p_o2c"],
@@ -789,7 +799,7 @@ const EXP=[
   "Built cloud-native CAP (Node.js) and RAP services on BTP Cloud Foundry exposing OData V4 / REST, secured with XSUAA and connected to S/4HANA through Destinations and Cloud Connector, following clean-core principles.",
   "AI payment anomaly detection on SAP AI Core / AI Launchpad: screens 12K+ transactions a month with ~40% less manual review.",
   "RAG workflows on HANA Vector Engine + GenAI Hub SDK with authorization-aware filtering. Policy queries went from hours to minutes.",
-  "Custom Joule skills and agents (order status, policy Q&A) built in Joule Studio and surfaced through Build Work Zone.",
+  "Custom Joule skills and agents (order status, policy Q&A) surfaced through Build Work Zone.",
   "Agentic AI with LangGraph, CrewAI and LlamaIndex on AI Core / GenAI Hub, plus MCP servers exposing SAP services as governed agent tools; MLOps for model deployment and monitoring.",
   "S/4HANA–Kinaxis supply-chain integration and SAP Business Data Cloud (BDC) data products.",
   "Created and extended CDS views and UI annotations in Eclipse (ADT), including a Country of Origin fix across the CDS view, backend ABAP and Fiori Elements app; extended a RAP app built on another RAP business object.",
@@ -830,7 +840,7 @@ let dlgP=null;
 function openProj(id){const p=P.find(x=>x.id===id);dlgP=p;
   $("#dh").innerHTML=`<div class="pic" style="width:2.5rem;height:2.5rem;border-radius:.75rem;display:grid;place-items:center;color:#fff;background:${TYPE.project.c}">${ic(p.i)}</div><h3>${p.t}<div style="font-size:.8rem;color:var(--label);font-weight:400">${byId[p.co].label}</div></h3>`;
   $("#db").innerHTML=`<div style="display:flex;gap:.5rem;align-items:baseline"><b style="font-size:2rem;font-weight:300;color:var(--highlight)">${p.k}</b><span style="color:var(--label)">${p.ku}</span></div><span class="status ${STY[p.style].cls}">${STY[p.style].n}</span>
-  <h4>Challenge</h4><p>${p.ch}</p><h4>Approach</h4><p>${p.ap}</p><h4>Outcome</h4><p>${p.out}</p>
+  <h4>Challenge</h4><p>${p.ch}</p><h4>Approach</h4><p>${p.ap}</p><h4>Outcome</h4><p>${p.out}</p>${p.url?`<p><a href="${p.url}" target="_blank" rel="noopener">Read the full write-up on LinkedIn →</a></p>`:""}
   <h4>SAP tools & skills</h4><div class="lnk">${p.sk.map(s=>`<span class="tok">${ic(byId[s].icon)}${byId[s].label}</span>`).join("")}</div>
   ${p.dm.length?`<h4>Business processes</h4><div class="lnk">${p.dm.map(s=>`<span class="tok">${ic(byId[s].icon)}${byId[s].label}</span>`).join("")}</div>`:""}`;
   $("#dlg").classList.add("show")}
@@ -856,8 +866,8 @@ const INT=[
  [["current","now","today","present","presently"],"He's currently a Senior SAP BTP Developer & AI Consultant at HF Sinclair (since April 2024). He builds CAP/RAP services on BTP, AI on SAP AI Core, RAG workflows, Joule agents, Fiori apps and CI/CD.",["hfs"]],
  [["skill","stack","tech","tool","expert","know","good at","strong"],"Core strengths:\n• BTP: CAP (Node.js), XSUAA, Destinations, Cloud Connector, Build Process Automation, Work Zone\n• AI: SAP AI Core, AI Launchpad, GenAI Hub SDK, HANA Vector Engine, Joule Studio, LangGraph, CrewAI, LlamaIndex, MCP, MLOps\n• Data: SAP Business Data Cloud (BDC), HANA Cloud\n• Frontend: SAPUI5, Fiori Elements, PWA\n• Backend: ABAP OO, Modern ABAP, ABAP Cloud, RAP, CDS views & UI annotations, BAdIs/enhancements, ALV, Adobe Forms, IDocs, SEGW, performance tuning (Eclipse ADT)\n• Integration: OData V2/V4, CPI, Event Mesh, API Management, Kinaxis\n• DevOps: Git, Jenkins",["a_btp","a_ai","a_ux"]],
  [["why","hire","strength","value","unique","different","fit","best"],"Why Satish: he takes requirements through design, build and go-live on his own, and he combines classic SAP (ABAP, Fiori, S/4HANA security) with modern BTP and SAP Business AI. Results: 12K+ payments a month screened by AI (−40% review), 300+ users on his Finance/O2C apps, −50% deployment effort, and zero critical defects at go-live.",["p_anom","p_o2c","p_cicd"]],
- [["project","portfolio","built","build","delivered","achievement","accomplish","work done","examples"],"Highlights: AI payment anomaly detection, RAG over Finance/O2C knowledge, custom Joule agents, agentic AI with MCP, S/4HANA–Kinaxis integration, a 6-app Finance & O2C Fiori suite, Sales Order automation, the ECC → S/4HANA security redesign, CI/CD for BTP, an offline PWA, pricing & rebates, and pharma product allocation. Open the Projects section for the full case studies.",["p_anom","p_rag","p_joule"]],
- [["clean","core","side-by-side","extension","upgrade","keep the core"],"He follows clean-core principles: the S/4HANA core stays standard, new logic goes side-by-side on SAP BTP (CAP, Build, AI Core, Joule) or on-stack with RAP and CDS, and everything talks to the core through released OData V4 / REST APIs. 8 of his 15 projects are side-by-side on BTP.",["p_cap"]],
+ [["project","portfolio","built","build","delivered","achievement","accomplish","work done","examples"],"Highlights: AI payment anomaly detection, RAG over Finance/O2C knowledge, custom Joule agents, a five-agent Joule Studio Order-to-Cash team deployed on live S/4HANA Cloud (932 automated tests), agentic AI with MCP, S/4HANA–Kinaxis integration, a 6-app Finance & O2C Fiori suite, Sales Order automation, the ECC → S/4HANA security redesign, CI/CD for BTP, an offline PWA, pricing & rebates, and pharma product allocation. Open the Projects section for the full case studies.",["p_anom","p_rag","p_joule"]],
+ [["clean","core","side-by-side","extension","upgrade","keep the core"],"He follows clean-core principles: the S/4HANA core stays standard, new logic goes side-by-side on SAP BTP (CAP, Build, AI Core, Joule) or on-stack with RAP and CDS, and everything talks to the core through released OData V4 / REST APIs. 9 of his 16 projects are side-by-side on BTP.",["p_cap"]],
  [["result","impact","number","metric","kpi","saving","reduc"],"Impact in numbers:\n• 12K+ payments a month screened by AI (−40% manual review)\n• 300+ users on 6 Finance/O2C apps (−30% effort)\n• −50% deployment effort with CI/CD\n• 806 legacy T-codes → 25 personas\n• PO approvals from ~2 days to the same day\n• −70% manual pricing effort\n• Zero critical defects at go-live",[]],
  [["cert","certified","certification","credential"],"Two SAP certifications: SAP Certified Associate – Fiori Application Developer (C_FIORD) and SAP Certified Associate – Generative AI Developer (C_AIG).",["fiord","aig"]],
  [["educat","degree","university","master","college","study","bachelor","btech"],"M.S. Computer Science, University of North Texas (2022), and B.Tech Computer Science, GITAM University, Hyderabad (2017).",["unt","gitam"]],
@@ -869,7 +879,7 @@ const INT=[
  [["hi","hello","hey","good morning","good afternoon","thanks","thank"],"Hi! 👋 Ask me anything about Satish: his experience, skills, projects, certifications, or how to contact him.",[]],
 ];
 // extra aliases for graph entities
-const ALIAS={cap:["cap","cloud application programming","node"],btpcf:["btp","cloud foundry"],xsuaa:["xsuaa","oauth","jwt"],dest:["destination"],cc:["cloud connector"],pp:["principal propagation"],mta:["mta"],hana:["hana cloud"],bpa:["process automation","build pa","workflow"],wz:["work zone","workzone"],ms:["mobile start"],aicore:["ai core","aicore"],ail:["ai launchpad"],genai:["genai hub","generative ai hub","gen ai"],vec:["vector"],rag:["rag","retrieval"],joule:["joule"],agents:["langgraph","crewai","llamaindex","agentic","multi-agent"],mcp:["mcp","model context protocol"],mlops:["mlops"],bdc:["bdc","business data cloud"],kinaxis:["kinaxis"],abapc:["abap cloud","clean core abap"],enh:["badi","enhancement","user exit"],alv:["alv"],cds:["cds","core data services","cds view"],anno:["annotation"],mabap:["abap unit","modern abap"],idoc:["idoc","ale"],adt:["eclipse","adt","abapgit","se80"],p_cds:["country of origin","origin country"],forms:["adobe form","adobe forms","smartform"],perf:["performance","tuning","st05"],py:["python","scikit","pandas","machine learning"," ml "],lc:["langchain"],aidev:["claude","copilot","ollama","ai-assisted","ai assisted"],odata:["odata"],rest:["rest api","soap","rfc","idoc"],cpi:["cpi","integration suite"],em:["event mesh"],apim:["api management"],sfsf:["salesforce","successfactors"],ui5:["ui5","sapui5","openui5"],fe:["fiori elements","fiori"],flp:["launchpad","flp"],pwa:["pwa","offline","service worker"],js:["javascript","typescript"," js "],test:["opa5","selenium","testing"],rap:["rap","restful"],cds:["cds","core data services"],abap:["abap"],segw:["segw","gateway","netweaver"],s4:["s/4","s4","s4hana","s/4hana"],ecc:["ecc"],roles:["security","authorization","role","persona"],git:["git"],jenkins:["jenkins","gitlab","ci/cd","cicd","pipeline"],tools:["bas","business application studio","cf cli","postman","tms"],
+const ALIAS={cap:["cap","cloud application programming","node"],btpcf:["btp","cloud foundry"],xsuaa:["xsuaa","oauth","jwt"],dest:["destination"],cc:["cloud connector"],pp:["principal propagation"],mta:["mta"],hana:["hana cloud"],bpa:["process automation","build pa","workflow"],wz:["work zone","workzone"],ms:["mobile start"],aicore:["ai core","aicore"],ail:["ai launchpad"],genai:["genai hub","generative ai hub","gen ai"],vec:["vector"],rag:["rag","retrieval"],joule:["joule"],p_jstudio:["joule studio","order-to-cash agent","o2c agent","932"],evals:["evaluation","evals","agent testing"],ias:["identity services","ias"],agents:["langgraph","crewai","llamaindex","agentic","multi-agent"],mcp:["mcp","model context protocol"],mlops:["mlops"],bdc:["bdc","business data cloud"],kinaxis:["kinaxis"],abapc:["abap cloud","clean core abap"],enh:["badi","enhancement","user exit"],alv:["alv"],cds:["cds","core data services","cds view"],anno:["annotation"],mabap:["abap unit","modern abap"],idoc:["idoc","ale"],adt:["eclipse","adt","abapgit","se80"],p_cds:["country of origin","origin country"],forms:["adobe form","adobe forms","smartform"],perf:["performance","tuning","st05"],py:["python","scikit","pandas","machine learning"," ml "],lc:["langchain"],aidev:["claude","copilot","ollama","ai-assisted","ai assisted"],odata:["odata"],rest:["rest api","soap","rfc","idoc"],cpi:["cpi","integration suite"],em:["event mesh"],apim:["api management"],sfsf:["salesforce","successfactors"],ui5:["ui5","sapui5","openui5"],fe:["fiori elements","fiori"],flp:["launchpad","flp"],pwa:["pwa","offline","service worker"],js:["javascript","typescript"," js "],test:["opa5","selenium","testing"],rap:["rap","restful"],cds:["cds","core data services"],abap:["abap"],segw:["segw","gateway","netweaver"],s4:["s/4","s4","s4hana","s/4hana"],ecc:["ecc"],roles:["security","authorization","role","persona"],git:["git"],jenkins:["jenkins","gitlab","ci/cd","cicd","pipeline"],tools:["bas","business application studio","cf cli","postman","tms"],
  hfs:["hf sinclair","sinclair","hfs"],lennox:["lennox"],ct:["certainteed","saint-gobain","saint gobain"],sanofi:["sanofi"],p_anom:["anomaly","fraud","payment"],p_sec:["migration","t-code","tcode"],p_prc:["pricing","rebate"],p_alloc:["allocation"]};
 function findEntities(q){const hits=[];nodes.forEach(n=>{if(n.type==="me"||n.type==="area")return;const al=(ALIAS[n.id]||[]).concat([n.label.toLowerCase()]);const sc=Math.max(...al.map(a=>q.includes(a)?a.length:0));if(sc>2)hits.push([n,sc])});return hits.sort((a,b)=>b[1]-a[1]).map(h=>h[0])}
 function entityAnswer(n){const rel=[...nbr[n.id]].map(i=>byId[i]);const pj=rel.filter(m=>m.type==="project").map(m=>m.label),co=rel.filter(m=>m.type==="company").map(m=>m.label);
@@ -892,7 +902,7 @@ function ask(q){if(!q.trim())return;msg(q.replace(/</g,"&lt;"),"me");const t=msg
       if(rel.length){const r=document.createElement("div");r.className="lnk";r.style.marginTop=".5rem";r.innerHTML=rel.map(id=>`<span class="tok" data-n="${id}">${ic(byId[id].icon)}Show ${byId[id].label}</span>`).join("");t.appendChild(r);
         r.querySelectorAll(".tok").forEach(x=>x.onclick=()=>{go("graph");setTimeout(()=>select(byId[x.dataset.n]),350)});$("#msgs").scrollTop=1e6}}},12)},450)}
 msg("Hi, I'm Satish's résumé assistant. Ask me anything: who he is, his experience, skills, projects, or a specific SAP tool.","bot");
-$("#qk").innerHTML=["Who is Satish?","Why hire him?","Experience?","Impact in numbers","Joule agents?","Agentic AI / MCP?","ABAP skills?","CDS views?","Contact?"].map(q=>`<button>${q}</button>`).join("");
+$("#qk").innerHTML=["Who is Satish?","Why hire him?","Experience?","Impact in numbers","Joule agents?","Joule Studio project?","Agentic AI / MCP?","ABAP skills?","CDS views?","Contact?"].map(q=>`<button>${q}</button>`).join("");
 $$("#qk button").forEach(b=>b.onclick=()=>ask(b.textContent));
 $("#cf").onsubmit=e=>{e.preventDefault();ask($("#ci").value);$("#ci").value=""};
 $("#fab").onclick=()=>{$("#chat").classList.toggle("show");if($("#chat").classList.contains("show"))$("#ci").focus()};
