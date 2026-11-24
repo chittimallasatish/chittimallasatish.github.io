@@ -306,7 +306,7 @@ footer{max-width:80rem;margin:0 auto;padding:1.5rem 2rem 5rem;color:var(--label)
     </div>
   </div>
   <div class="facets">
-    <div class="kpi"><div class="l">Experience</div><div class="v"><span data-count="8">0</span><small>+ yrs</small></div><div class="d">SAP development</div></div>
+    <div class="kpi"><div class="l">Experience</div><div class="v"><span data-count="5">0</span><small>+ yrs</small></div><div class="d">SAP development</div></div>
     <div class="kpi"><div class="l">AI payment screening</div><div class="v"><span data-count="12">0</span><small>K+/mo</small></div><div class="d">−40% manual review</div></div>
     <div class="kpi"><div class="l">App users</div><div class="v"><span data-count="300">0</span><small>+</small></div><div class="d">6 Finance & O2C apps</div></div>
     <div class="kpi"><div class="l">Deployment effort</div><div class="v">−<span data-count="50">0</span><small>%</small></div><div class="d">Git + Jenkins CI/CD</div></div>
@@ -361,7 +361,7 @@ footer{max-width:80rem;margin:0 auto;padding:1.5rem 2rem 5rem;color:var(--label)
   </section>
 
   <section id="experience">
-    <div class="sh"><h2>Experience</h2><p>8+ years across S/4HANA, ECC and SAP BTP</p></div>
+    <div class="sh"><h2>Experience</h2><p>5+ years across S/4HANA, ECC and SAP BTP</p></div>
     <div class="tl" id="tl"></div>
   </section>
 
@@ -444,26 +444,25 @@ const nodes=[],links=[],byId={};
 function N(id,label,type,icon,desc,extra={}){const n={id,label,type,icon,desc,...extra};nodes.push(n);byId[id]=n;return n}
 function L(a,b){links.push({a,b})}
 
-N("me","Satish Chittimalla","me","person-placeholder","Senior SAP BTP Developer with 8+ years building cloud-native SAP applications. I take business requirements through design, build and go-live myself.");
+N("me","Satish Chittimalla","me","person-placeholder","Senior SAP BTP Developer with 5+ years building cloud-native SAP applications. I take business requirements through design, build and go-live myself.");
 Object.entries(CAT).forEach(([k,v])=>{N("a_"+k,v.n,"area",v.i,"Skill area: "+v.n+".",{cat:k});L("me","a_"+k)});
 
 // companies
 N("hfs","HF Sinclair","company","factory","Senior SAP BTP Developer & AI Consultant · Apr 2024 – Present · Dallas, TX · S/4HANA + BTP");
 N("lennox","Lennox International","company","building","SAP UI5 Developer & BTP Consultant · Aug 2022 – Mar 2024 · Richardson, TX · SAP ECC");
 N("ct","CertainTeed (Saint-Gobain)","company","home","SAP UI5 / Fiori Developer · Jul 2020 – Jul 2021 · SAP S/4HANA");
-N("sanofi","Sanofi","company","pharmacy","SAP UI5 / Fiori Developer (ABAP & JavaScript) · May 2017 – Jun 2020 · Hyderabad, India");
 N("indep","Independent Projects","company","lab","Self-directed SAP AI builds, published as write-ups · 2026");
-["hfs","lennox","ct","sanofi","indep"].forEach(c=>L("me",c));
+["hfs","lennox","ct","indep"].forEach(c=>L("me",c));
 
 // credentials
 N("fiord","SAP Certified – Fiori Application Developer","cred","badge","SAP Certified Associate (C_FIORD), issued by SAP.");
 N("aig","SAP Certified – Generative AI Developer","cred","badge","SAP Certified Associate (C_AIG), issued by SAP.");
 N("unt","M.S. Computer Science – UNT","cred","education","University of North Texas, 2022.");
-N("gitam","B.Tech Computer Science – GITAM","cred","education","GITAM University, Hyderabad, 2017.");
+N("gitam","B.Tech Computer Science – GITAM","cred","education","GITAM University, Hyderabad, May 2020.");
 ["fiord","aig","unt","gitam"].forEach(c=>L("me",c));
 
 // domains
-const D=[["fi","Finance (FI/AR)","money-bills"],["o2c","Order-to-Cash (SD)","sales-order"],["mm","Procurement (MM)","sales-document"],["scm","Supply Chain & Inventory","shipping-status"],["prc","Pricing, Conditions & Rebates","sales-quote"],["atp","Product Allocation / ATP","date-time"]];
+const D=[["fi","Finance (FI/AR)","money-bills"],["o2c","Order-to-Cash (SD)","sales-order"],["mm","Procurement (MM)","sales-document"],["scm","Supply Chain & Inventory","shipping-status"],["prc","Pricing, Conditions & Rebates","sales-quote"]];
 D.forEach(([id,l,i])=>N(id,l,"domain",i,"Business process area I've delivered for: "+l+"."));
 
 // skills  [id,label,cat,icon,desc]
@@ -621,16 +620,10 @@ const P=[
   ap:"Built a JavaScript pricing rules engine (regional costs, volume discounts, condition records) and a bulk CSV/XML upload posting 5K+ condition records per cycle to S/4HANA over OData V2/V4.",
   out:"About 70% less manual pricing effort and about 45% fewer upload errors.",
   sk:["ui5","js","odata","s4"],dm:["prc"]},
- {id:"p_alloc",t:"Pharma Product Allocation Management",co:"sanofi",i:"shipping-status",style:"classic",k:"1,000+",ku:"weekly sales orders",
-  s:"Visualizes and manages allocation cuts across pharma supply-chain orders.",
-  ch:"Allocating limited pharma supply across a high volume of weekly orders was slow and manual.",
-  ap:"Built a SAPUI5 app on 5+ ABAP / NetWeaver Gateway OData services, with partial-fulfillment allocation logic using reusable OOP patterns. Set up Fiori Launchpad catalogs, groups and role-based access.",
-  out:"About 50% less manual allocation effort.",
-  sk:["ui5","abap","segw","flp","odata"],dm:["scm","atp"]},
 ];
 P.forEach(p=>{N(p.id,p.t,"project",p.i,p.s,{p});L(p.co,p.id);p.sk.forEach(s=>L(p.id,s));p.dm.forEach(d=>L(p.id,d))});
 // extra edges
-L("hfs","s4");L("lennox","ecc");L("ct","s4");L("fiord","ui5");L("fiord","fe");L("fiord","flp");L("aig","aicore");L("aig","genai");L("aig","joule");L("hfs","aidev");L("aig","agents");["abapc","enh","forms","perf"].forEach(x=>L("hfs",x));["alv","enh","idoc","mabap"].forEach(x=>L("lennox",x));["alv","enh","perf","idoc"].forEach(x=>L("sanofi",x));["mabap","adt"].forEach(x=>L("hfs",x));L("abapc","rap");L("abap","enh");
+L("hfs","s4");L("lennox","ecc");L("ct","s4");L("fiord","ui5");L("fiord","fe");L("fiord","flp");L("aig","aicore");L("aig","genai");L("aig","joule");L("hfs","aidev");L("aig","agents");["abapc","enh","forms","perf"].forEach(x=>L("hfs",x));["alv","enh","idoc","mabap"].forEach(x=>L("lennox",x));["mabap","adt"].forEach(x=>L("hfs",x));L("abapc","rap");L("abap","enh");
 
 const nbr={};nodes.forEach(n=>nbr[n.id]=new Set());links.forEach(l=>{nbr[l.a].add(l.b);nbr[l.b].add(l.a)});
 const colorOf=n=>n.type==="skill"||n.type==="area"?CAT[n.cat].c:TYPE[n.type].c;
@@ -819,11 +812,6 @@ const EXP=[
   "Material Pricing & Distributor Rebate app for 150+ field sales reps, with ~70% less manual pricing effort.",
   "JavaScript pricing rules engine and bulk CSV/XML upload posting 5K+ condition records per cycle, with ~45% fewer upload errors.",
   "Full CRUD over OData V2/V4; wrote RICEF technical specs and resolved QA/UAT defects through go-live."]},
- {co:"sanofi",r:"SAP UI5 / Fiori Developer (ABAP & JavaScript)",w:"Sanofi · Hyderabad, India",d:"May 2017 – Jun 2020",sys:"SAP ERP",b:[
-  "Product Allocation Management app covering 1,000+ weekly pharma sales orders, with ~50% less manual allocation effort.",
-  "5+ OData services in ABAP / NetWeaver Gateway, with partial-fulfillment allocation logic built on reusable OOP patterns.",
-  "ALV reports, enhancements and IDoc processing for SD and supply-chain processes.",
-  "Fiori Launchpad catalogs, groups and role-based access for supply chain personas; performance tuning across DEV, QAS and PRD."]},
 ];
 $("#tl").innerHTML=EXP.map((e,i)=>`<div class="ti reveal ${i===0?"open":""}"><div class="dot" style="background:${TYPE.company.c}">${ic(byId[e.co].icon)}</div><div class="card"><div class="hd"><div><h3>${e.r}</h3><div class="co">${e.w}</div></div><div style="text-align:right"><div>${e.d}</div><span class="status info">${e.sys}</span></div></div><ul>${e.b.map((b,j)=>`<li class="${j>2?"x":""}">${b}</li>`).join("")}</ul>${e.b.length>3?`<button class="more">${i===0?"Show less":"Show more"}</button>`:""}</div></div>`).join("");
 $$(".ti .more").forEach(b=>b.onclick=()=>{const t=b.closest(".ti");t.classList.toggle("open");b.textContent=t.classList.contains("open")?"Show less":"Show more"});
@@ -858,29 +846,29 @@ $$("#itb button").forEach(b=>b.onclick=()=>{st=b.dataset.c;$$("#itb button").for
 renderSkills();
 
 /* ================= ASSISTANT ================= */
-const SUMMARY="Satish Chittimalla is a Senior SAP BTP Developer & AI Consultant at HF Sinclair in Dallas, Texas, with 8+ years in SAP. He builds cloud-native, clean-core extensions with CAP (Node.js) and RAP, SAPUI5/Fiori apps, and SAP Business AI: anomaly detection on AI Core, RAG on the HANA Vector Engine, custom Joule agents, and agentic AI (LangGraph, CrewAI, MCP). He also brings strong ABAP: ABAP Cloud, RAP, CDS views and annotations, BAdIs, ALV, IDocs, Adobe Forms and performance tuning. He holds two SAP certifications (Fiori Developer, Generative AI Developer) and an M.S. in Computer Science from UNT.";
+const SUMMARY="Satish Chittimalla is a Senior SAP BTP Developer & AI Consultant at HF Sinclair in Dallas, Texas, with 5+ years in SAP. He builds cloud-native, clean-core extensions with CAP (Node.js) and RAP, SAPUI5/Fiori apps, and SAP Business AI: anomaly detection on AI Core, RAG on the HANA Vector Engine, custom Joule agents, and agentic AI (LangGraph, CrewAI, MCP). He also brings strong ABAP: ABAP Cloud, RAP, CDS views and annotations, BAdIs, ALV, IDocs, Adobe Forms and performance tuning. He holds two SAP certifications (Fiori Developer, Generative AI Developer) and an M.S. in Computer Science from UNT.";
 // intents: [keywords (prefix match), answer, related node ids]
 const INT=[
  [["who","about","summary","introduc","yourself","himself","profile","overview","satish","bio","background","tell me"],SUMMARY,["me"]],
- [["experience","years","career","history","companies","worked","employer","job","roles"],"8+ years in SAP:\n• HF Sinclair: Senior SAP BTP Developer & AI Consultant (Apr 2024 – now)\n• Lennox International: SAP UI5 Developer & BTP Consultant (2022–24)\n• CertainTeed (Saint-Gobain): SAP UI5/Fiori Developer (2020–21)\n• Sanofi: SAP UI5/Fiori Developer, ABAP & JavaScript (2017–20)",["hfs","lennox","ct","sanofi"]],
+ [["experience","years","career","history","companies","worked","employer","job","roles"],"5+ years in SAP:\n• HF Sinclair: Senior SAP BTP Developer & AI Consultant (Apr 2024 – now)\n• Lennox International: SAP UI5 Developer & BTP Consultant (2022–24)\n• CertainTeed (Saint-Gobain): SAP UI5/Fiori Developer (2020–21)",["hfs","lennox","ct"]],
  [["current","now","today","present","presently"],"He's currently a Senior SAP BTP Developer & AI Consultant at HF Sinclair (since April 2024). He builds CAP/RAP services on BTP, AI on SAP AI Core, RAG workflows, Joule agents, Fiori apps and CI/CD.",["hfs"]],
  [["skill","stack","tech","tool","expert","know","good at","strong"],"Core strengths:\n• BTP: CAP (Node.js), XSUAA, Destinations, Cloud Connector, Build Process Automation, Work Zone\n• AI: SAP AI Core, AI Launchpad, GenAI Hub SDK, HANA Vector Engine, Joule Studio, LangGraph, CrewAI, LlamaIndex, MCP, MLOps\n• Data: SAP Business Data Cloud (BDC), HANA Cloud\n• Frontend: SAPUI5, Fiori Elements, PWA\n• Backend: ABAP OO, Modern ABAP, ABAP Cloud, RAP, CDS views & UI annotations, BAdIs/enhancements, ALV, Adobe Forms, IDocs, SEGW, performance tuning (Eclipse ADT)\n• Integration: OData V2/V4, CPI, Event Mesh, API Management, Kinaxis\n• DevOps: Git, Jenkins",["a_btp","a_ai","a_ux"]],
  [["why","hire","strength","value","unique","different","fit","best"],"Why Satish: he takes requirements through design, build and go-live on his own, and he combines classic SAP (ABAP, Fiori, S/4HANA security) with modern BTP and SAP Business AI. Results: 12K+ payments a month screened by AI (−40% review), 300+ users on his Finance/O2C apps, −50% deployment effort, and zero critical defects at go-live.",["p_anom","p_o2c","p_cicd"]],
- [["project","portfolio","built","build","delivered","achievement","accomplish","work done","examples"],"Highlights: AI payment anomaly detection, RAG over Finance/O2C knowledge, custom Joule agents, a five-agent Joule Studio Order-to-Cash team deployed on live S/4HANA Cloud (932 automated tests), agentic AI with MCP, S/4HANA–Kinaxis integration, a 6-app Finance & O2C Fiori suite, Sales Order automation, the ECC → S/4HANA security redesign, CI/CD for BTP, an offline PWA, pricing & rebates, and pharma product allocation. Open the Projects section for the full case studies.",["p_anom","p_rag","p_joule"]],
+ [["project","portfolio","built","build","delivered","achievement","accomplish","work done","examples"],"Highlights: AI payment anomaly detection, RAG over Finance/O2C knowledge, custom Joule agents, a five-agent Joule Studio Order-to-Cash team deployed on live S/4HANA Cloud (932 automated tests), agentic AI with MCP, S/4HANA–Kinaxis integration, a 6-app Finance & O2C Fiori suite, Sales Order automation, the ECC → S/4HANA security redesign, CI/CD for BTP, an offline PWA, and pricing & rebates. Open the Projects section for the full case studies.",["p_anom","p_rag","p_joule"]],
  [["clean","core","side-by-side","extension","upgrade","keep the core"],"He follows clean-core principles: the S/4HANA core stays standard, new logic goes side-by-side on SAP BTP (CAP, Build, AI Core, Joule) or on-stack with RAP and CDS, and everything talks to the core through released OData V4 / REST APIs. 9 of his 16 projects are side-by-side on BTP.",["p_cap"]],
  [["result","impact","number","metric","kpi","saving","reduc"],"Impact in numbers:\n• 12K+ payments a month screened by AI (−40% manual review)\n• 300+ users on 6 Finance/O2C apps (−30% effort)\n• −50% deployment effort with CI/CD\n• 806 legacy T-codes → 25 personas\n• PO approvals from ~2 days to the same day\n• −70% manual pricing effort\n• Zero critical defects at go-live",[]],
  [["cert","certified","certification","credential"],"Two SAP certifications: SAP Certified Associate – Fiori Application Developer (C_FIORD) and SAP Certified Associate – Generative AI Developer (C_AIG).",["fiord","aig"]],
- [["educat","degree","university","master","college","study","bachelor","btech"],"M.S. Computer Science, University of North Texas (2022), and B.Tech Computer Science, GITAM University, Hyderabad (2017).",["unt","gitam"]],
+ [["educat","degree","university","master","college","study","bachelor","btech"],"M.S. Computer Science, University of North Texas (2022), and B.Tech Computer Science, GITAM University, Hyderabad (May 2020).",["unt","gitam"]],
  [["contact","email","reach","hire him","linkedin","github","git hub","repo","connect","talk","call","phone"],"The best way to reach him is email: satishchittimalla75@gmail.com. You can also connect on LinkedIn (linkedin.com/in/satish-chittimalla) or see his GitHub (github.com/chittimallasatish).",[]],
  [["locat","where","based","live","city","relocat","remote","onsite","hybrid"],"He's based in Dallas, Texas. For questions about remote, hybrid or relocation, please email satishchittimalla75@gmail.com.",[]],
  [["available","availability","open to","looking","notice","start","salary","rate","compensation","visa"],"He's open to Senior SAP BTP / CAP / SAP Business AI opportunities. For availability, compensation or other specifics, please email satishchittimalla75@gmail.com and he'll reply personally.",[]],
  [["lead","mentor","team","manage","senior"],"He mentors 2 junior developers, writes technical designs, and leads code reviews. He also works closely with cross-functional stakeholders on requirements.",[]],
- [["domain","module","business process","finance","o2c","order to cash","procure","supply chain","pricing","rebate","atp","sd","mm","fi"],"Business processes he's delivered for: Finance (FI/AR), Order-to-Cash (SD), Procurement (MM), Supply Chain & Inventory, Pricing/Condition Records/Rebates, and Product Allocation / ATP.",["fi","o2c","mm"]],
+ [["domain","module","business process","finance","o2c","order to cash","procure","supply chain","pricing","rebate","atp","sd","mm","fi"],"Business processes he's delivered for: Finance (FI/AR), Order-to-Cash (SD), Procurement (MM), Supply Chain & Inventory, and Pricing/Condition Records/Rebates.",["fi","o2c","mm"]],
  [["hi","hello","hey","good morning","good afternoon","thanks","thank"],"Hi! 👋 Ask me anything about Satish: his experience, skills, projects, certifications, or how to contact him.",[]],
 ];
 // extra aliases for graph entities
 const ALIAS={cap:["cap","cloud application programming","node"],btpcf:["btp","cloud foundry"],xsuaa:["xsuaa","oauth","jwt"],dest:["destination"],cc:["cloud connector"],pp:["principal propagation"],mta:["mta"],hana:["hana cloud"],bpa:["process automation","build pa","workflow"],wz:["work zone","workzone"],ms:["mobile start"],aicore:["ai core","aicore"],ail:["ai launchpad"],genai:["genai hub","generative ai hub","gen ai"],vec:["vector"],rag:["rag","retrieval"],joule:["joule"],p_jstudio:["joule studio","order-to-cash agent","o2c agent","932"],evals:["evaluation","evals","agent testing"],ias:["identity services","ias"],agents:["langgraph","crewai","llamaindex","agentic","multi-agent"],mcp:["mcp","model context protocol"],mlops:["mlops"],bdc:["bdc","business data cloud"],kinaxis:["kinaxis"],abapc:["abap cloud","clean core abap"],enh:["badi","enhancement","user exit"],alv:["alv"],cds:["cds","core data services","cds view"],anno:["annotation"],mabap:["abap unit","modern abap"],idoc:["idoc","ale"],adt:["eclipse","adt","abapgit","se80"],p_cds:["country of origin","origin country"],forms:["adobe form","adobe forms","smartform"],perf:["performance","tuning","st05"],py:["python","scikit","pandas","machine learning"," ml "],lc:["langchain"],aidev:["claude","copilot","ollama","ai-assisted","ai assisted"],odata:["odata"],rest:["rest api","soap","rfc","idoc"],cpi:["cpi","integration suite"],em:["event mesh"],apim:["api management"],sfsf:["salesforce","successfactors"],ui5:["ui5","sapui5","openui5"],fe:["fiori elements","fiori"],flp:["launchpad","flp"],pwa:["pwa","offline","service worker"],js:["javascript","typescript"," js "],test:["opa5","selenium","testing"],rap:["rap","restful"],cds:["cds","core data services"],abap:["abap"],segw:["segw","gateway","netweaver"],s4:["s/4","s4","s4hana","s/4hana"],ecc:["ecc"],roles:["security","authorization","role","persona"],git:["git"],jenkins:["jenkins","gitlab","ci/cd","cicd","pipeline"],tools:["bas","business application studio","cf cli","postman","tms"],
- hfs:["hf sinclair","sinclair","hfs"],lennox:["lennox"],ct:["certainteed","saint-gobain","saint gobain"],sanofi:["sanofi"],p_anom:["anomaly","fraud","payment"],p_sec:["migration","t-code","tcode"],p_prc:["pricing","rebate"],p_alloc:["allocation"]};
+ hfs:["hf sinclair","sinclair","hfs"],lennox:["lennox"],ct:["certainteed","saint-gobain","saint gobain"],p_anom:["anomaly","fraud","payment"],p_sec:["migration","t-code","tcode"],p_prc:["pricing","rebate"]};
 function findEntities(q){const hits=[];nodes.forEach(n=>{if(n.type==="me"||n.type==="area")return;const al=(ALIAS[n.id]||[]).concat([n.label.toLowerCase()]);const sc=Math.max(...al.map(a=>q.includes(a)?a.length:0));if(sc>2)hits.push([n,sc])});return hits.sort((a,b)=>b[1]-a[1]).map(h=>h[0])}
 function entityAnswer(n){const rel=[...nbr[n.id]].map(i=>byId[i]);const pj=rel.filter(m=>m.type==="project").map(m=>m.label),co=rel.filter(m=>m.type==="company").map(m=>m.label);
   if(n.type==="company"){return`${n.label}: ${n.desc}${pj.length?". Projects there: "+pj.join(" · ")+".":""}`}
